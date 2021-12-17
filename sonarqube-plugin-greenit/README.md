@@ -46,7 +46,8 @@ Vous pouvez plus trouver plus d'informations sur l'architecture des différents 
 ## Installation de l'environnement SonarQube de développmement 
 
 ### Initialisation
-Démarrer sonar `docker-compose up`
+
+Démarrer sonar `docker-compose up --build -d`
 
 Si vous rencontrez l'erreur suivante en démmarant :
 
@@ -71,7 +72,7 @@ My Account -> Security -> Generate Tokens
 
 Relancez vos services en renseignant le token :
 
-`TOKEN=MY_TOKEN docker-compose up`
+`TOKEN=MY_TOKEN docker-compose up --build -d`
 
 
 ### Import des plugins
