@@ -17,16 +17,19 @@ Pour vous familiariser avec l’AST de votre langage et mieux comprendre comment
 - Docker-compose 3.9
 
 ## Architecture du projet
-Voici un aperçu de l'architecture du projet :
-```
 
+Voici un aperçu de l'architecture du projet :
+
+```
 sonarQubeGreenIt        # Dossier racine du projet (non versionner) contient l'ensemble du projet en lui même
 |
 +--css-linter           # Repertoire du linter CSS 
 |  |
 +--js-linter            # Repertoire du linter JS
 |  |
-+--native-analyzer      # Répertoire du project maven des plugins dit "natif" saonarqube
++--native-analyzer      # Répertoire du project maven des plugins dit "natif" sonarqube
+|  |
+|  +--android-plugin    # Contiens le module Android
 |  |
 |  +--java-plugin       # Contiens le module JAVA
 |  |
