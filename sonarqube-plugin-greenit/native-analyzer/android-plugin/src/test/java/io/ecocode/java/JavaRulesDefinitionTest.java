@@ -101,6 +101,12 @@ public class JavaRulesDefinitionTest {
     assertThat(wifiMulticastLockRule.debtRemediationFunction().type()).isEqualTo(Type.CONSTANT_ISSUE);
     assertThat(wifiMulticastLockRule.type()).isEqualTo(RuleType.CODE_SMELL);
 
+    Rule uncompressedDataTransmissionRule = repository.rule("EBOT003");
+    assertThat(uncompressedDataTransmissionRule).isNotNull();
+    assertThat(uncompressedDataTransmissionRule.name()).isEqualTo("Bottleneck: Uncompressed Data Transmission");
+    assertThat(uncompressedDataTransmissionRule.debtRemediationFunction().type()).isEqualTo(Type.CONSTANT_ISSUE);
+    assertThat(uncompressedDataTransmissionRule.type()).isEqualTo(RuleType.CODE_SMELL);
+
     Rule cameraLeakRule = repository.rule("ELEA002");
     assertThat(cameraLeakRule).isNotNull();
     assertThat(cameraLeakRule.name()).isEqualTo("Leakage: Camera Leak");
