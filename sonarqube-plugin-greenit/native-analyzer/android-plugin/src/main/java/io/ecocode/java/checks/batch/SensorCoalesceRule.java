@@ -21,10 +21,13 @@
 package io.ecocode.java.checks.batch;
 
 import com.google.common.collect.ImmutableList;
+import io.ecocode.java.checks.helpers.ArgumentComplexTypeSubscriptionVisitor;
 import org.sonar.check.Rule;
-import org.sonar.plugins.java.api.IssuableSubscriptionVisitor;
 import org.sonar.plugins.java.api.semantic.MethodMatchers;
-import org.sonar.plugins.java.api.tree.*;
+import org.sonar.plugins.java.api.tree.Arguments;
+import org.sonar.plugins.java.api.tree.ExpressionTree;
+import org.sonar.plugins.java.api.tree.MethodInvocationTree;
+import org.sonar.plugins.java.api.tree.Tree;
 
 import java.util.List;
 
@@ -33,7 +36,7 @@ import java.util.List;
  * If argument value isn't present, report issue.
  */
 @Rule(key = "EBAT002", name = "ecoCodeSensorCoalesce")
-public class SensorCoalesceRule extends IssuableSubscriptionVisitor {
+public class SensorCoalesceRule extends ArgumentComplexTypeSubscriptionVisitor {
 
     private final MethodMatchers sensorListenerMethodMatcher = MethodMatchers.create().ofTypes("android.hardware.SensorManager").names("registerListener").withAnyParameters().build();
 
@@ -80,27 +83,5 @@ public class SensorCoalesceRule extends IssuableSubscriptionVisitor {
                     && ((Number)thirdArgument.asConstant().get()).doubleValue() > 0);
         }
         return false;
-    }
-
-    /**
-     * Method that gives the argument child value when it's of a complex type
-     *
-     * @param argument the argument with a complex type
-     * @return the child expression of the argument that matched (for example if the argument is being cast)
-     */
-    private Object checkArgumentComplexType(ExpressionTree argument) {
-        switch (argument.kind()) {
-            case MEMBER_SELECT:
-                MemberSelectExpressionTree memberSelectExpressionTree = (MemberSelectExpressionTree) argument;
-                return (memberSelectExpressionTree.identifier());
-            case TYPE_CAST:
-                TypeCastTree typeCastTree = (TypeCastTree) argument;
-                return (typeCastTree.expression());
-            case PARENTHESIZED_EXPRESSION:
-                ParenthesizedTree parenthesizedTree = (ParenthesizedTree) argument;
-                return (parenthesizedTree.expression());
-            default:
-                return argument;
-        }
     }
 }
