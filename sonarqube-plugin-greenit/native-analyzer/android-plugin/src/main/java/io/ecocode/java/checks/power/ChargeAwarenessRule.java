@@ -51,7 +51,7 @@ public class ChargeAwarenessRule extends IssuableSubscriptionVisitor {
 
     @Override
     public List<Tree.Kind> nodesToVisit() {
-        return ImmutableList.of(Tree.Kind.NEW_CLASS,Tree.Kind.METHOD_INVOCATION);
+        return ImmutableList.of(Tree.Kind.NEW_CLASS, Tree.Kind.METHOD_INVOCATION);
     }
 
     @Override
@@ -64,9 +64,9 @@ public class ChargeAwarenessRule extends IssuableSubscriptionVisitor {
                     checkParameter(nct.arguments());
                 }
             }
-            if (tree.is(Tree.Kind.METHOD_INVOCATION)){
+            if (tree.is(Tree.Kind.METHOD_INVOCATION)) {
                 MethodInvocationTree mit = (MethodInvocationTree) tree;
-                if (addActionMatcher.matches(mit) || createIntentFilterMatcher.matches(mit)){
+                if (addActionMatcher.matches(mit) || createIntentFilterMatcher.matches(mit)) {
                     checkParameter(mit.arguments());
                 }
             }

@@ -73,14 +73,14 @@ public class SensorCoalesceRule extends ArgumentComplexTypeSubscriptionVisitor {
         if (arguments.size() > 3) {
             ExpressionTree thirdArgument = arguments.get(3);
             //Check 4th argument is a complex type (that needs to be managed)
-            while (thirdArgument.is(Tree.Kind.TYPE_CAST, Tree.Kind.MEMBER_SELECT, Tree.Kind.PARENTHESIZED_EXPRESSION)){
+            while (thirdArgument.is(Tree.Kind.TYPE_CAST, Tree.Kind.MEMBER_SELECT, Tree.Kind.PARENTHESIZED_EXPRESSION)) {
                 thirdArgument = (ExpressionTree) checkArgumentComplexType(thirdArgument);
             }
             return thirdArgument.asConstant().isPresent()
                     //Check 4th argument is a number
                     && (thirdArgument.is(Tree.Kind.INT_LITERAL, Tree.Kind.LONG_LITERAL, Tree.Kind.FLOAT_LITERAL, Tree.Kind.DOUBLE_LITERAL)
                     //Check 4th argument is strictly positive
-                    && ((Number)thirdArgument.asConstant().get()).doubleValue() > 0);
+                    && ((Number) thirdArgument.asConstant().get()).doubleValue() > 0);
         }
         return false;
     }
