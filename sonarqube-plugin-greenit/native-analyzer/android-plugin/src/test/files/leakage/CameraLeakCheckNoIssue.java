@@ -1,9 +1,8 @@
 package android.hardware;
 
-
 public class Camera {
 
-    public void test(){
+    public void test() {
         open();
         release();
     }

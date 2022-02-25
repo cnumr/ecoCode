@@ -1,6 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.EcoCode.NoActionBar" parent="@android:style/Theme.Holo.Light.NoActionBar"> <!-- Noncompliant {{Using a light theme may have a significant impact on energy consumption on (AM)OLED screens.}} -->
+    <style name="Theme.EcoCode.NoActionBar"
+           parent="@android:style/Theme.Holo.Light.NoActionBar"> <!-- Noncompliant {{Using a light theme may have a significant impact on energy consumption on (AM)OLED screens.}} -->
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -14,7 +15,8 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.EcoCode" parent="@android:style/Theme.Holo.Light"> <!-- Noncompliant {{Using a light theme may have a significant impact on energy consumption on (AM)OLED screens.}} -->
+    <style name="Theme.EcoCode"
+           parent="@android:style/Theme.Holo.Light"> <!-- Noncompliant {{Using a light theme may have a significant impact on energy consumption on (AM)OLED screens.}} -->
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -42,12 +44,14 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.OldLight" parent="Theme.AppCompat.Light"> <!-- Noncompliant {{Using a light theme may have a significant impact on energy consumption on (AM)OLED screens.}} -->
+    <style name="Theme.OldLight"
+           parent="Theme.AppCompat.Light"> <!-- Noncompliant {{Using a light theme may have a significant impact on energy consumption on (AM)OLED screens.}} -->
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/white</item>
     </style>
 
-    <style name="Theme.OldLight.DarkActionBar" parent="Theme.AppCompat.Light.DarkActionBar"> <!-- Noncompliant {{Using a light theme may have a significant impact on energy consumption on (AM)OLED screens.}} -->
+    <style name="Theme.OldLight.DarkActionBar"
+           parent="Theme.AppCompat.Light.DarkActionBar"> <!-- Noncompliant {{Using a light theme may have a significant impact on energy consumption on (AM)OLED screens.}} -->
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/white</item>
     </style>

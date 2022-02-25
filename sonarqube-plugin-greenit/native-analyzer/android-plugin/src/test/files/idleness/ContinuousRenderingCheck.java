@@ -6,7 +6,7 @@ public class GLSurfaceView {
 
     public final static int RENDERMODE_CONTINUOUSLY = 1;
 
-    public void test(){
+    public void test() {
         GLSurfaceView surface = new GLSurfaceView();
         surface.setRenderMode(RENDERMODE_CONTINUOUSLY); // Noncompliant {{Using RENDERMODE_WHEN_DIRTY instead of RENDERMODE_CONTINUOUSLY can improve battery life.}}
         surface.setRenderMode(RENDERMODE_WHEN_DIRTY);
