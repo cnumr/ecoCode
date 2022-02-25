@@ -20,16 +20,14 @@
 package io.ecocode.java.checks.helpers.constant;
 
 import com.google.common.collect.ImmutableList;
-import org.sonar.plugins.java.api.IssuableSubscriptionVisitor;
+import io.ecocode.java.checks.helpers.ArgumentComplexTypeSubscriptionVisitor;
 import org.sonar.plugins.java.api.semantic.MethodMatchers;
 import org.sonar.plugins.java.api.tree.*;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class ArgumentValueOnMethodCheck extends IssuableSubscriptionVisitor {
+public abstract class ArgumentValueOnMethodCheck extends ArgumentComplexTypeSubscriptionVisitor {
 
     private final MethodSpecs[] methodsSpecs;
     private int[] paramsPositions;
@@ -114,27 +112,7 @@ public abstract class ArgumentValueOnMethodCheck extends IssuableSubscriptionVis
                 || argument.is(Tree.Kind.DOUBLE_LITERAL)) {
             checkConstantValue(argument.asConstant(), argument, constantValueToCheck);
         } else {
-            checkArgumentComplexType(argument);
+            handleArgument((ExpressionTree) checkArgumentComplexType(argument));
         }
-    }
-
-    private void checkArgumentComplexType(ExpressionTree argument) {
-        switch (argument.kind()) {
-            case MEMBER_SELECT:
-                MemberSelectExpressionTree mset = (MemberSelectExpressionTree) argument;
-                handleArgument(mset.identifier());
-                break;
-            case TYPE_CAST:
-                TypeCastTree tctree = (TypeCastTree) argument;
-                handleArgument(tctree.expression());
-                break;
-            case PARENTHESIZED_EXPRESSION:
-                ParenthesizedTree partzt = (ParenthesizedTree) argument;
-                handleArgument(partzt.expression());
-                break;
-            default:
-                break;
-        }
-
     }
 }
