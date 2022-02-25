@@ -18,33 +18,33 @@ public class XmlRulesDefinitionTest {
         assertThat(repository.language()).isEqualTo(Xml.KEY);
         assertThat(repository.rules()).hasSize(XmlCheckList.getXmlChecks().size());
 
-        RulesDefinition.Rule alertUseRule = repository.rule("ESOB004");
-        assertThat(alertUseRule).isNotNull();
-        assertThat(alertUseRule.name()).isEqualTo("Sobriety: Dark UI (Theme)");
-
         RulesDefinition.Rule keepScreenOnXmlRule = repository.rule("EIDL003");
         assertThat(keepScreenOnXmlRule).isNotNull();
         assertThat(keepScreenOnXmlRule.name()).isEqualTo("Idleness: Keep Screen On");
+
+        RulesDefinition.Rule keepCpuOnXmlRule = repository.rule("EIDL005");
+        assertThat(keepCpuOnXmlRule).isNotNull();
+        assertThat(keepCpuOnXmlRule.name()).isEqualTo("Idleness: Keep CPU On");
+
+        RulesDefinition.Rule compagnionInBackgroundXmlRule = repository.rule("EPOW002");
+        assertThat(compagnionInBackgroundXmlRule).isNotNull();
+        assertThat(compagnionInBackgroundXmlRule.name()).isEqualTo("Power: Compagnion In Background");
+
+        RulesDefinition.Rule ignoreBatteryOptimizationsXmlRule = repository.rule("EPOW003");
+        assertThat(ignoreBatteryOptimizationsXmlRule).isNotNull();
+        assertThat(ignoreBatteryOptimizationsXmlRule.name()).isEqualTo("Power: Ignore Battery Optimizations");
+
+        RulesDefinition.Rule chargeAwarenessXmlRule = repository.rule("EPOW005");
+        assertThat(chargeAwarenessXmlRule).isNotNull();
+        assertThat(chargeAwarenessXmlRule.name()).isEqualTo("Power: Charge Awareness");
 
         RulesDefinition.Rule xmlBrightnessRule = repository.rule("ESOB003");
         assertThat(xmlBrightnessRule).isNotNull();
         assertThat(xmlBrightnessRule.name()).isEqualTo("Sobriety: Dark UI (Bright Colors)");
 
-        RulesDefinition.Rule ignoreBatteryOptimizations = repository.rule("EPOW003");
-        assertThat(ignoreBatteryOptimizations).isNotNull();
-        assertThat(ignoreBatteryOptimizations.name()).isEqualTo("Power: Ignore Battery Optimizations");
-
-        RulesDefinition.Rule keepCpuOnXml = repository.rule("EIDL005");
-        assertThat(keepCpuOnXml).isNotNull();
-        assertThat(keepCpuOnXml.name()).isEqualTo("Idleness: Keep CPU On");
-
-        RulesDefinition.Rule compagnionInBackgroundXml = repository.rule("EPOW002");
-        assertThat(compagnionInBackgroundXml).isNotNull();
-        assertThat(compagnionInBackgroundXml.name()).isEqualTo("Power: Compagnion In Background");
-
-        RulesDefinition.Rule chargeAwarenessXml = repository.rule("EPOW005");
-        assertThat(chargeAwarenessXml).isNotNull();
-        assertThat(chargeAwarenessXml.name()).isEqualTo("Power: Charge Awareness");
+        RulesDefinition.Rule DarkUIThemeXmlRule = repository.rule("ESOB004");
+        assertThat(DarkUIThemeXmlRule).isNotNull();
+        assertThat(DarkUIThemeXmlRule.name()).isEqualTo("Sobriety: Dark UI (Theme)");
 
         RulesDefinition.Rule serviceBootTimeXml = repository.rule("EBAT001");
         assertThat(serviceBootTimeXml).isNotNull();
@@ -56,5 +56,4 @@ public class XmlRulesDefinitionTest {
             }
         }
     }
-
 }
