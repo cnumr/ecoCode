@@ -23,7 +23,8 @@ import com.google.common.collect.ImmutableList;
 import org.sonar.plugins.java.api.IssuableSubscriptionVisitor;
 import org.sonar.plugins.java.api.JavaFileScannerContext;
 import org.sonar.plugins.java.api.semantic.MethodMatchers;
-import org.sonar.plugins.java.api.tree.*;
+import org.sonar.plugins.java.api.tree.MethodInvocationTree;
+import org.sonar.plugins.java.api.tree.Tree;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +38,7 @@ import java.util.List;
  * If the "opening" method is called in a file without the call to the "closing" method, we raise an issue on
  * all the "opening" method call of the file.
  * If the "closing" method is called, we do not raise issues, even if several "opening" method are called.
- *
- * This approach is far from perfect but cover a lot of the use cases.
+ * <p>This approach is far from perfect but cover a lot of the use cases.</p>
  */
 public abstract class OpeningClosingMethodCheck extends IssuableSubscriptionVisitor {
 
@@ -56,7 +56,7 @@ public abstract class OpeningClosingMethodCheck extends IssuableSubscriptionVisi
     /**
      * Message to report on the issue.
      *
-     * @return Message to report on the issue.
+     * @return String: Message to report on the issue.
      */
     public abstract String getMessage();
 
@@ -68,7 +68,7 @@ public abstract class OpeningClosingMethodCheck extends IssuableSubscriptionVisi
     @Override
     public void leaveFile(JavaFileScannerContext context) {
         if (!hasSeenClosingMethod) {
-            for (Tree issueTree:
+            for (Tree issueTree :
                     openingMethodTreeList) {
                 reportIssue(issueTree, getMessage());
             }
