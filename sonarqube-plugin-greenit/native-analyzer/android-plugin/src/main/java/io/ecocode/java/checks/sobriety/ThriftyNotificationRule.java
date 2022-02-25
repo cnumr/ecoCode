@@ -56,16 +56,16 @@ public class ThriftyNotificationRule extends IssuableSubscriptionVisitor {
         if (tree.is(Tree.Kind.METHOD_INVOCATION)) {
             MethodInvocationTree mit = (MethodInvocationTree) tree;
             if (notificationHardwareCallMethodMatchers.matches(mit)) {
-                if(isOneArgumentNull(mit.arguments().toArray())){
+                if (isOneArgumentNull(mit.arguments().toArray())) {
                     reportIssue(mit, ERROR_MESSAGE);
                 }
             }
         }
     }
 
-    private boolean isOneArgumentNull(Object[] arguments){
+    private boolean isOneArgumentNull(Object[] arguments) {
         for (Object argument : arguments) {
-            if (((ExpressionTree)argument).kind() != Tree.Kind.NULL_LITERAL){
+            if (((ExpressionTree) argument).kind() != Tree.Kind.NULL_LITERAL) {
                 return true;
             }
         }
