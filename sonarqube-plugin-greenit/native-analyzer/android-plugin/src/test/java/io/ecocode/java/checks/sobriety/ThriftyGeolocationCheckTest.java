@@ -12,5 +12,4 @@ public class ThriftyGeolocationCheckTest {
                 .withChecks(new ThriftyGeolocationMinTimeRule(), new ThriftyGeolocationMinDistanceRule())
                 .verifyIssues();
     }
-
 }

@@ -7,7 +7,6 @@ public class ThriftyNotificationRuleTest {
 
     @Test
     public void verify() {
-
         JavaCheckVerifier.newVerifier().onFile("src/test/files/sobriety/ThriftyNotificationCheckBuilder.java")
                 .withCheck(new ThriftyNotificationRule())
                 .verifyIssues();
