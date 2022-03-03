@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#FFFFFF"><!-- Noncompliant {{Avoid using too bright colors for (AM)OLED screens.}} -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:background="#FFFFFF"><!-- Noncompliant {{Avoid using too bright colors for (AM)OLED screens.}} -->
     <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
         <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
             <ImageView android:layout_width="match_parent" android:layout_height="match_parent" android:src="#000000"/>

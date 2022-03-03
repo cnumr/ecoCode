@@ -18,6 +18,10 @@ public class XmlRulesDefinitionTest {
         assertThat(repository.language()).isEqualTo(Xml.KEY);
         assertThat(repository.rules()).hasSize(XmlCheckList.getXmlChecks().size());
 
+        RulesDefinition.Rule serviceBootTimeXml = repository.rule("EBAT001");
+        assertThat(serviceBootTimeXml).isNotNull();
+        assertThat(serviceBootTimeXml.name()).isEqualTo("Batch: Service Boot Time");
+
         RulesDefinition.Rule keepScreenOnXmlRule = repository.rule("EIDL003");
         assertThat(keepScreenOnXmlRule).isNotNull();
         assertThat(keepScreenOnXmlRule.name()).isEqualTo("Idleness: Keep Screen On");
@@ -26,9 +30,9 @@ public class XmlRulesDefinitionTest {
         assertThat(keepCpuOnXmlRule).isNotNull();
         assertThat(keepCpuOnXmlRule.name()).isEqualTo("Idleness: Keep CPU On");
 
-        RulesDefinition.Rule compagnionInBackgroundXmlRule = repository.rule("EPOW002");
-        assertThat(compagnionInBackgroundXmlRule).isNotNull();
-        assertThat(compagnionInBackgroundXmlRule.name()).isEqualTo("Power: Compagnion In Background");
+        RulesDefinition.Rule companionInBackgroundXmlRule = repository.rule("EPOW002");
+        assertThat(companionInBackgroundXmlRule).isNotNull();
+        assertThat(companionInBackgroundXmlRule.name()).isEqualTo("Power: Companion In Background");
 
         RulesDefinition.Rule ignoreBatteryOptimizationsXmlRule = repository.rule("EPOW003");
         assertThat(ignoreBatteryOptimizationsXmlRule).isNotNull();
@@ -45,10 +49,6 @@ public class XmlRulesDefinitionTest {
         RulesDefinition.Rule DarkUIThemeXmlRule = repository.rule("ESOB004");
         assertThat(DarkUIThemeXmlRule).isNotNull();
         assertThat(DarkUIThemeXmlRule.name()).isEqualTo("Sobriety: Dark UI (Theme)");
-
-        RulesDefinition.Rule serviceBootTimeXml = repository.rule("EBAT001");
-        assertThat(serviceBootTimeXml).isNotNull();
-        assertThat(serviceBootTimeXml.name()).isEqualTo("Batch: Service Boot Time");
 
         for (RulesDefinition.Rule rule : repository.rules()) {
             for (RulesDefinition.Param param : rule.params()) {

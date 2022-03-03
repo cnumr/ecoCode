@@ -27,12 +27,12 @@ import org.sonar.check.Rule;
  * if the permission "android.permission.REQUEST_COMPANION_RUN_IN_BACKGROUND" is found, report an issue.
  */
 @Rule(key = "EPOW002", name = "ecocodeCompagnionInBackgroundXml")
-public class CompagnionInBackgroundXmlRule extends CheckPermissionsRule {
+public class CompanionInBackgroundXmlRule extends CheckPermissionsRule {
 
     private static final String PERMISSION_NAME = "android.permission.REQUEST_COMPANION_RUN_IN_BACKGROUND";
     private static final String ERROR_MESSAGE = "Using the permission REQUEST_COMPANION_RUN_IN_BACKGROUND will have a negative effect on the device's battery life.";
 
-    public CompagnionInBackgroundXmlRule() {
+    public CompanionInBackgroundXmlRule() {
         super(PERMISSION_NAME, ERROR_MESSAGE);
     }
 }
