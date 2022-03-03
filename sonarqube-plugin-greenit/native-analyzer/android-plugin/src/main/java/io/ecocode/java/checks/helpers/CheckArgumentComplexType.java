@@ -1,25 +1,21 @@
 package io.ecocode.java.checks.helpers;
 
-import com.google.common.collect.ImmutableList;
-import org.sonar.plugins.java.api.IssuableSubscriptionVisitor;
-import org.sonar.plugins.java.api.tree.*;
+import org.sonar.plugins.java.api.tree.ExpressionTree;
+import org.sonar.plugins.java.api.tree.MemberSelectExpressionTree;
+import org.sonar.plugins.java.api.tree.ParenthesizedTree;
+import org.sonar.plugins.java.api.tree.TypeCastTree;
 
-import java.util.List;
-
-public class ArgumentComplexTypeSubscriptionVisitor extends IssuableSubscriptionVisitor {
-
-    @Override
-    public List<Tree.Kind> nodesToVisit() {
-        return ImmutableList.of(Tree.Kind.METHOD_INVOCATION);
-    }
-
+/**
+ * Helper class that implements a simple function
+ */
+public class CheckArgumentComplexType {
     /**
      * Method that gives the argument child value when it's of a complex type
      *
      * @param argument the argument with a complex type
      * @return the child expression of the argument that matched (for example if the argument is being cast)
      */
-    public Object checkArgumentComplexType(ExpressionTree argument) {
+    public static Object checkArgumentComplexType(ExpressionTree argument) {
         switch (argument.kind()) {
             case MEMBER_SELECT:
                 MemberSelectExpressionTree memberSelectExpressionTree = (MemberSelectExpressionTree) argument;

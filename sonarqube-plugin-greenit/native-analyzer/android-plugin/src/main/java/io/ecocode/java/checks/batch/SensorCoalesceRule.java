@@ -21,8 +21,9 @@
 package io.ecocode.java.checks.batch;
 
 import com.google.common.collect.ImmutableList;
-import io.ecocode.java.checks.helpers.ArgumentComplexTypeSubscriptionVisitor;
+import io.ecocode.java.checks.helpers.CheckArgumentComplexType;
 import org.sonar.check.Rule;
+import org.sonar.plugins.java.api.IssuableSubscriptionVisitor;
 import org.sonar.plugins.java.api.semantic.MethodMatchers;
 import org.sonar.plugins.java.api.tree.Arguments;
 import org.sonar.plugins.java.api.tree.ExpressionTree;
@@ -36,7 +37,7 @@ import java.util.List;
  * If it isn't present, report issue.
  */
 @Rule(key = "EBAT002", name = "ecoCodeSensorCoalesce")
-public class SensorCoalesceRule extends ArgumentComplexTypeSubscriptionVisitor {
+public class SensorCoalesceRule extends IssuableSubscriptionVisitor {
 
     private final MethodMatchers sensorListenerMethodMatcher = MethodMatchers.create().ofTypes("android.hardware.SensorManager").names("registerListener").withAnyParameters().build();
 
@@ -74,7 +75,7 @@ public class SensorCoalesceRule extends ArgumentComplexTypeSubscriptionVisitor {
             ExpressionTree thirdArgument = arguments.get(3);
             //Check 4th argument is a complex type (that needs to be managed)
             while (thirdArgument.is(Tree.Kind.TYPE_CAST, Tree.Kind.MEMBER_SELECT, Tree.Kind.PARENTHESIZED_EXPRESSION)) {
-                thirdArgument = (ExpressionTree) checkArgumentComplexType(thirdArgument);
+                thirdArgument = (ExpressionTree) CheckArgumentComplexType.checkArgumentComplexType(thirdArgument);
             }
             return thirdArgument.asConstant().isPresent()
                     //Check 4th argument is a number
