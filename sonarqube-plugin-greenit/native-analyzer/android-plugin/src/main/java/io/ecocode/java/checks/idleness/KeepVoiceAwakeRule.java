@@ -20,10 +20,11 @@
 package io.ecocode.java.checks.idleness;
 
 import com.google.common.collect.ImmutableList;
-import io.ecocode.java.checks.helpers.ArgumentComplexTypeSubscriptionVisitor;
+import io.ecocode.java.checks.helpers.CheckArgumentComplexType;
 import org.sonar.api.utils.log.Logger;
 import org.sonar.api.utils.log.Loggers;
 import org.sonar.check.Rule;
+import org.sonar.plugins.java.api.IssuableSubscriptionVisitor;
 import org.sonar.plugins.java.api.JavaFileScannerContext;
 import org.sonar.plugins.java.api.semantic.MethodMatchers;
 import org.sonar.plugins.java.api.tree.*;
@@ -35,13 +36,13 @@ import java.util.Optional;
 /**
  * Check New Class Node and Method Invocation Node.
  * If a new instance of android.service.voice.VoiceInteractionSession is declared.
- * Check whether or not the android.service.voice.VoiceInteractionSession#setKeepAwake() method is called.
+ * Check whether the android.service.voice.VoiceInteractionSession#setKeepAwake() method is called.
  * If the argument 0 of the method is false, do not report an issue.
  * If the argument 0 of the method is true, report the method node.
- * Otherwise report an issue on the new class nodes.
+ * Otherwise, report an issue on the new class nodes.
  */
 @Rule(key = "EIDL009", name = "ecocodeKeepVoiceAwake")
-public class KeepVoiceAwakeRule extends ArgumentComplexTypeSubscriptionVisitor {
+public class KeepVoiceAwakeRule extends IssuableSubscriptionVisitor {
 
     private static final Logger LOG = Loggers.get(KeepVoiceAwakeRule.class);
 
@@ -125,7 +126,7 @@ public class KeepVoiceAwakeRule extends ArgumentComplexTypeSubscriptionVisitor {
         } else if (argument.is(Tree.Kind.BOOLEAN_LITERAL)) {
             checkArgumentIsTrue(argument, argument.asConstant());
         } else {
-            handleArgument((ExpressionTree) checkArgumentComplexType(argument));
+            handleArgument((ExpressionTree) CheckArgumentComplexType.checkArgumentComplexType(argument));
         }
     }
 }

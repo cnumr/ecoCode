@@ -20,7 +20,8 @@
 package io.ecocode.java.checks.helpers.constant;
 
 import com.google.common.collect.ImmutableList;
-import io.ecocode.java.checks.helpers.ArgumentComplexTypeSubscriptionVisitor;
+import io.ecocode.java.checks.helpers.CheckArgumentComplexType;
+import org.sonar.plugins.java.api.IssuableSubscriptionVisitor;
 import org.sonar.plugins.java.api.semantic.MethodMatchers;
 import org.sonar.plugins.java.api.tree.ExpressionTree;
 import org.sonar.plugins.java.api.tree.IdentifierTree;
@@ -30,7 +31,7 @@ import org.sonar.plugins.java.api.tree.Tree;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class ArgumentValueOnMethodCheck extends ArgumentComplexTypeSubscriptionVisitor {
+public abstract class ArgumentValueOnMethodCheck extends IssuableSubscriptionVisitor {
 
     private final MethodSpecs[] methodsSpecs;
     private int[] paramsPositions;
@@ -115,7 +116,7 @@ public abstract class ArgumentValueOnMethodCheck extends ArgumentComplexTypeSubs
                 || argument.is(Tree.Kind.DOUBLE_LITERAL)) {
             checkConstantValue(argument.asConstant(), argument, constantValueToCheck);
         } else {
-            handleArgument((ExpressionTree) checkArgumentComplexType(argument));
+            handleArgument((ExpressionTree) CheckArgumentComplexType.checkArgumentComplexType(argument));
         }
     }
 }
