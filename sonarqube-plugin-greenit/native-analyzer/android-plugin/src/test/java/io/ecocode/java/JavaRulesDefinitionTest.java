@@ -44,6 +44,7 @@ public class JavaRulesDefinitionTest {
 
         assertRuleProperties(repository);
         assertAllRuleParametersHaveDescription(repository);
+    }
   
     private void assertRuleProperties(Repository repository) {
 
