@@ -60,7 +60,7 @@ Your should see two lines (one for sonarQube:latest and one for postgres). If th
 
 ```sh 
 docker ps -a
-docker logs src-sonar-&
+docker logs src-sonar-1
 ```
 
 If you have this error on run
