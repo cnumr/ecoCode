@@ -12,7 +12,6 @@
     <packaging>sonar-plugin</packaging>
 
     <name>ecoCode Python Sonar Plugin</name>
-    <description></description>
 
     <dependencies>
         <dependency>

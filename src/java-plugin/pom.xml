@@ -13,7 +13,6 @@
     <packaging>sonar-plugin</packaging>
 
     <name>ecoCode Java Sonar Plugin</name>
-    <description></description>
 
     <dependencies>
         <!-- MAIN sources dependencies -->
@@ -76,7 +75,6 @@
                     <sonarQubeMinVersion>${sonarqube.version}</sonarQubeMinVersion>
                     <!-- FIXME after release of SQ 8.8 -->
                     <requirePlugins>java:6.12.0.24852</requirePlugins>
-                    <!-- <requirePlugins>java:${sonarjava.version}</requirePlugins> -->
                 </configuration>
             </plugin>
             <plugin>
@@ -102,44 +100,7 @@
                         <outputDirectory>../lib</outputDirectory>
                         </configuration>
                     </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
-                <executions>
-                    <execution>
-                        <id>prepare-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- only required to run UT - these are UT dependencies -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
+                    <!-- only required to run UT - these are UT dependencies -->
                     <execution>
                         <id>copy</id>
                         <phase>test-compile</phase>
@@ -187,6 +148,36 @@
                             </artifactItems>
                             <outputDirectory>${project.build.directory}/test-jars</outputDirectory>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

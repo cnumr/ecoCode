@@ -11,7 +11,6 @@
     <artifactId>ecocode-php-plugin</artifactId>
     <packaging>sonar-plugin</packaging>
     <name>ecoCode PHP Sonar Plugin</name>
-    <description></description>
 
 
     <dependencies>
