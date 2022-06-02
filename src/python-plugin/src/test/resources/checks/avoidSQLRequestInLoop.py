@@ -16,8 +16,10 @@ def psycopg2_loop():
     connection = psycopg2.connect(database='local')
     cursor = connection.cursor()
     results = []
-    for id in range(5):
+    id = 0
+    while id <= 5:
       results.append(cursor.execute("SELECT name FROM user WHERE id = ?", (id)).fetchone()) # Noncompliant {{Avoid performing SQL queries within a loop}}
+      id += 1
     connection.close()
     return results
 
