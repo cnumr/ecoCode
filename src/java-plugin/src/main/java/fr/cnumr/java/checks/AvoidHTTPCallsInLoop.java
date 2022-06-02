@@ -42,13 +42,19 @@ public class AvoidHTTPCallsInLoop extends IssuableSubscriptionVisitor {
     private class AvoidHTTPCallsInLoopVisitor extends BaseTreeVisitor {
 
         private static final String  HTTP_CLIENT_CALL= "java.net.http.HttpClient";
-
+        private static final String WEB_CLIENT_CALL="org.springframework.web.reactive.function.client.WebClient";
 
         private final MethodMatchers HTTP_METHOD = MethodMatchers.or(
                 MethodMatchers
                         .create()
                         .ofTypes(HTTP_CLIENT_CALL)
                         .names("sendAsync", "send")
+                        .withAnyParameters()
+                        .build(),
+                MethodMatchers
+                        .create()
+                        .ofSubTypes(WEB_CLIENT_CALL)
+                        .names("get", "post", "put", "delete", "head")
                         .withAnyParameters()
                         .build()
         );
