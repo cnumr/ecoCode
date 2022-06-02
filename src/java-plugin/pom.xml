@@ -184,6 +184,12 @@
                                     <version>4.3.3.RELEASE</version>
                                     <type>jar</type>
                                 </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.springframework.data</groupId>
+                                    <artifactId>spring-data-commons</artifactId>
+                                    <version>2.5.2</version>
+                                    <type>jar</type>
+                                </artifactItem>
                             </artifactItems>
                             <outputDirectory>${project.build.directory}/test-jars</outputDirectory>
                         </configuration>
