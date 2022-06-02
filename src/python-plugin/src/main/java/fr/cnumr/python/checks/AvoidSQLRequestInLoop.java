@@ -10,7 +10,7 @@ import org.sonar.plugins.python.api.tree.*;
 import java.util.*;
 
 @Rule(
-        key = "S64",
+        key = "S72",
         name = "Developpement",
         description = AvoidSQLRequestInLoop.MESSAGE_RULE,
         priority = Priority.MINOR,
