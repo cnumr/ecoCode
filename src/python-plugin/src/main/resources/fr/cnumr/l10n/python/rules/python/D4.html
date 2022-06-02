@@ -1,0 +1,18 @@
+<p>Eviter d'utiliser des variables globales directement</p>
+<h2>Noncompliant Code Example</h2>
+<pre>
+global_var = 'Hello Dolly';
+def print_length() {
+  print(len(global_var));
+}
+print_length();
+
+</pre>
+<h2>Compliant Solution</h2>
+<pre>
+global_var = 'Hello Dolly';
+def print_length(local_var) {
+  print(len(local_var));
+}
+print_length(global_var);
+</pre>
