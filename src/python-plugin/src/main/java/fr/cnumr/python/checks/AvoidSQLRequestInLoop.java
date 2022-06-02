@@ -24,7 +24,7 @@ public class AvoidSQLRequestInLoop extends PythonSubscriptionCheck {
 
 	@Override
 	public void initialize(Context context) {
-		context.registerSyntaxNodeConsumer(Tree.Kind.STRING_LITERAL, this::visitNodeString);
+		context.registerSyntaxNodeConsumer(Tree.Kind.FOR_STMT, this::visitNodeString);
 	}
 
 	public void visitNodeString(SubscriptionContext ctx) {
