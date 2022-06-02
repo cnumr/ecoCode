@@ -2,72 +2,74 @@ package fr.cnumr.python.checks;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.plugins.java.api.IssuableSubscriptionVisitor;
-import org.sonar.plugins.java.api.semantic.MethodMatchers;
-import org.sonar.plugins.java.api.tree.BaseTreeVisitor;
-import org.sonar.plugins.java.api.tree.MethodInvocationTree;
-import org.sonar.plugins.java.api.tree.Tree;
-import org.sonar.plugins.java.api.tree.Tree.Kind;
+import org.sonar.plugins.python.api.PythonSubscriptionCheck;
+import org.sonar.plugins.python.api.SubscriptionContext;
+import org.sonar.plugins.python.api.tree.CallExpression;
+import org.sonar.plugins.python.api.tree.StringElement;
+import org.sonar.plugins.python.api.tree.StringLiteral;
+import org.sonar.plugins.python.api.tree.Tree;
+import java.util.*;
 
-import java.util.Arrays;
-import java.util.List;
 
-import static org.sonar.plugins.java.api.semantic.MethodMatchers.CONSTRUCTOR;
+@Rule(
+		key = "S64",
+		name = "Developpement",
+		description = AvoidSQLRequestInLoop.MESSAGERULE,
+		priority = Priority.MINOR,
+		tags = {"bug" })
+public class AvoidSQLRequestInLoop extends PythonSubscriptionCheck {
 
-@Rule(key = "S64", name = "Developpement", description = AvoidSQLRequestInLoop.MESSAGERULE, priority = Priority.MINOR,
-	tags = {"bug" })
-public class AvoidSQLRequestInLoop extends IssuableSubscriptionVisitor {
-
-	protected static final String MESSAGERULE = "Avoid SQL request in loop";
-	private final AvoidSQLRequestInLoopVisitor visitorInFile = new AvoidSQLRequestInLoopVisitor();
-
-	@Override
-	public List<Kind> nodesToVisit() {
-		return Arrays.asList(Tree.Kind.FOR_EACH_STATEMENT, Tree.Kind.FOR_STATEMENT, Tree.Kind.WHILE_STATEMENT);
-	}
+	public static final String MESSAGERULE = "Avoid perform an SQL query inside a loop";
+	private static final Map<String, Collection<Integer>> linesWithIssuesByFile = new HashMap<>();
 
 	@Override
-	public void visitNode(Tree tree) {
-		tree.accept(visitorInFile);
+	public void initialize(Context context) {
+		context.registerSyntaxNodeConsumer(Tree.Kind.STRING_LITERAL, this::visitNodeString);
 	}
 
-	private class AvoidSQLRequestInLoopVisitor extends BaseTreeVisitor {
+	public void visitNodeString(SubscriptionContext ctx) {
+		StringLiteral stringLiteral = (StringLiteral) ctx.syntaxNode();
 
-		private static final String PYTHON_SQL_STATEMENT = "python.sql.Statement";
-		private static final String PYTHON_SQL_CONNECTION = "python.sql.Connection";
-		private static final String SPRING_JDBC_OPERATIONS = "org.springframework.jdbc.core.JdbcOperations";
-
-		private final MethodMatchers SQL_METHOD = MethodMatchers.or(
-				MethodMatchers.create().ofSubTypes("org.hibernate.Session").names("createQuery", "createSQLQuery")
-						.withAnyParameters().build(),
-				MethodMatchers.create().ofSubTypes(PYTHON_SQL_STATEMENT)
-						.names("executeQuery", "execute", "executeUpdate", "executeLargeUpdate", "addBatch")
-						.withAnyParameters().build(),
-				MethodMatchers.create().ofSubTypes(PYTHON_SQL_CONNECTION)
-						.names("prepareStatement", "prepareCall", "nativeSQL")
-						.withAnyParameters().build(),
-				MethodMatchers.create().ofTypes("javax.persistence.EntityManager")
-						.names("createNativeQuery", "createQuery")
-						.withAnyParameters().build(),
-				MethodMatchers.create().ofSubTypes(SPRING_JDBC_OPERATIONS)
-						.names("batchUpdate", "execute", "query", "queryForList", "queryForMap", "queryForObject",
-								"queryForRowSet", "queryForInt", "queryForLong", "update")
-						.withAnyParameters().build(),
-				MethodMatchers.create().ofTypes("org.springframework.jdbc.core.PreparedStatementCreatorFactory")
-						.names(CONSTRUCTOR, "newPreparedStatementCreator")
-						.withAnyParameters().build(),
-				MethodMatchers.create().ofSubTypes("javax.jdo.PersistenceManager").names("newQuery")
-						.withAnyParameters().build(),
-				MethodMatchers.create().ofSubTypes("javax.jdo.Query").names("setFilter", "setGrouping")
-						.withAnyParameters().build());
-
-		@Override
-		public void visitMethodInvocation(MethodInvocationTree tree) {
-			if (SQL_METHOD.matches(tree)) {
-				reportIssue(tree, MESSAGERULE);
-			} else {
-				super.visitMethodInvocation(tree);
+		for(StringElement stringElement :  stringLiteral.stringElements()) {
+			if(checkIssue(stringElement, ctx)){
+				CallExpression callExpression = (CallExpression) ctx.syntaxNode();
+				if (callExpression.parent().getKind() == Tree.Kind.FOR_STMT ) {
+					ctx.addIssue(callExpression, NoFunctionCallWhenDeclaringForLoop.DESCRIPTION);
+				}
 			}
-		}
+		};
 	}
+
+
+	private void repport(StringElement stringElement, SubscriptionContext ctx) {
+		if (stringElement.firstToken() != null) {
+			final String classname = ctx.pythonFile().fileName();
+			final int line = stringElement.firstToken().line();
+			if (!linesWithIssuesByFile.containsKey(classname)) {
+				linesWithIssuesByFile.put(classname, new ArrayList<>());
+			}
+			linesWithIssuesByFile.get(classname).add(line);
+		}
+		ctx.addIssue(stringElement, MESSAGERULE);
+	}
+
+
+	public boolean checkIssue(StringElement stringElement, SubscriptionContext ctx) {
+		if (lineAlreadyHasThisIssue(stringElement, ctx)) return false;
+		if (stringElement.value().contains(".execute(")) {
+			repport(stringElement, ctx);
+			return true;
+		}
+		return false;
+	}
+
+
+	private boolean lineAlreadyHasThisIssue(StringElement stringElement, SubscriptionContext ctx) {
+		if (stringElement.firstToken() != null) {
+			final String filename = ctx.pythonFile().fileName();
+			final int line = stringElement.firstToken().line();
+
+			return linesWithIssuesByFile.containsKey(filename)
+					&& linesWithIssuesByFile.get(filename).contains(line);
+		}
 }
