@@ -5,10 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.sonar.java.checks.verifier.FilesUtils;
 import org.sonar.java.checks.verifier.JavaCheckVerifier;
 
-public class AvoidHTTPCallsInLoopCheckTest {
+class AvoidHTTPCallsInLoopCheckTest {
 
     @Test
-    public void testHttpClient() {
+    void testHttpClient() {
         JavaCheckVerifier.newVerifier()
                 .onFile("src/test/files/AvoidHTTPCallsWithNativeClientInLoopCheck.java")
                 .withCheck(new AvoidHTTPCallsInLoop())
@@ -16,7 +16,7 @@ public class AvoidHTTPCallsInLoopCheckTest {
     }
 
     @Test
-    public void testWebClient() {
+    void testWebClient() {
         JavaCheckVerifier.newVerifier()
                 .onFile("src/test/files/AvoidHTTPCallsWithWebClientInLoopCheck.java")
                 .withCheck(new AvoidHTTPCallsInLoop())
@@ -25,7 +25,7 @@ public class AvoidHTTPCallsInLoopCheckTest {
     }
 
     @Test
-    public void testApacheClient() {
+    void testApacheClient() {
         JavaCheckVerifier.newVerifier()
                 .onFile("src/test/files/AvoidHTTPCallsWithApacheClientInLoopCheck.java")
                 .withCheck(new AvoidHTTPCallsInLoop())

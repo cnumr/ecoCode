@@ -41,35 +41,38 @@ public class AvoidHTTPCallsInLoop extends IssuableSubscriptionVisitor {
 
     private class AvoidHTTPCallsInLoopVisitor extends BaseTreeVisitor {
 
-        private static final String HTTP_CLIENT_CALL = "java.net.http.HttpClient";
-        private static final String WEB_CLIENT_CALL = "org.springframework.web.reactive.function.client.WebClient";
+        private static final String HTTP_CLIENT = "java.net.http.HttpClient";
+        private final MethodMatchers httpCallMatcher = MethodMatchers.create()
+                .ofTypes(HTTP_CLIENT)
+                .names("sendAsync", "send")
+                .withAnyParameters()
+                .build();
 
-        private static final String APACHE_CLIENT_CALL = "org.apache.http.client.HttpClient";
+        private static final String WEB_CLIENT = "org.springframework.web.reactive.function.client.WebClient";
 
-        private final MethodMatchers HTTP_METHOD = MethodMatchers.or(
-                MethodMatchers
-                        .create()
-                        .ofTypes(HTTP_CLIENT_CALL)
-                        .names("sendAsync", "send")
-                        .withAnyParameters()
-                        .build(),
-                MethodMatchers
-                        .create()
-                        .ofSubTypes(WEB_CLIENT_CALL)
-                        .names("get", "post", "put", "delete", "head")
-                        .withAnyParameters()
-                        .build(),
-                MethodMatchers
-                        .create()
-                        .ofSubTypes(APACHE_CLIENT_CALL)
-                        .names("execute")
-                        .withAnyParameters()
-                        .build()
+        private final MethodMatchers webClientCallMatcher = MethodMatchers.create()
+                .ofSubTypes(WEB_CLIENT)
+                .names("get", "post", "put", "delete", "head")
+                .withAnyParameters()
+                .build();
+
+        private static final String APACHE_CLIENT = "org.apache.http.client.HttpClient";
+
+        private final MethodMatchers apacheClientCallMatcher = MethodMatchers.create()
+                .ofSubTypes(APACHE_CLIENT)
+                .names("execute")
+                .withAnyParameters()
+                .build();
+
+        private final MethodMatchers matchers = MethodMatchers.or(
+                httpCallMatcher,
+                webClientCallMatcher,
+                apacheClientCallMatcher
         );
 
         @Override
         public void visitMethodInvocation(MethodInvocationTree tree) {
-            if (HTTP_METHOD.matches(tree)) {
+            if (matchers.matches(tree)) {
                 reportIssue(tree, MESSAGERULE);
             } else {
                 super.visitMethodInvocation(tree);
