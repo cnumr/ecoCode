@@ -7,6 +7,6 @@ public class AvoidSQLRequestInLoopCheckTest {
 
     @Test
     public void test() {
-        PythonCheckVerifier.verify("src/test/resources/checks/AvoidSQLRequestInLoopCheck.py", new test());
+        PythonCheckVerifier.verify("src/test/resources/checks/AvoidSQLRequestInLoopCheck.py", new AvoidSQLRequestInLoop());
     }
 }

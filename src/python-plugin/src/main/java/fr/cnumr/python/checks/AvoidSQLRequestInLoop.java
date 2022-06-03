@@ -2,13 +2,14 @@ package fr.cnumr.python.checks;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
+import org.sonar.plugins.java.api.tree.MethodTree;
+import org.sonar.plugins.python.api.PythonFile;
 import org.sonar.plugins.python.api.PythonSubscriptionCheck;
 import org.sonar.plugins.python.api.SubscriptionContext;
-import org.sonar.plugins.python.api.tree.CallExpression;
-import org.sonar.plugins.python.api.tree.StringElement;
-import org.sonar.plugins.python.api.tree.StringLiteral;
-import org.sonar.plugins.python.api.tree.Tree;
+import org.sonar.plugins.python.api.tree.*;
+
 import java.util.*;
+import org.sonar.plugins.java.api.tree.ClassTree;
 
 
 @Rule(
@@ -24,52 +25,44 @@ public class AvoidSQLRequestInLoop extends PythonSubscriptionCheck {
 
 	@Override
 	public void initialize(Context context) {
-		context.registerSyntaxNodeConsumer(Tree.Kind.FOR_STMT, this::visitNodeString);
-	}
+		context.registerSyntaxNodeConsumer(Tree.Kind.FOR_STMT, ctx -> {
+			ForStatement forStatement = (ForStatement) ctx.syntaxNode();
+			StatementList list = (StatementList) forStatement.body();
+			for(Statement a : list.statements()){
+				if (a.getKind().equals(Tree.Kind.EXPRESSION_STMT)){
+					ExpressionStatement expression = (ExpressionStatement) a;
+					for(Expression i : expression.expressions()){
+						CallExpression call = (CallExpression) i;
+						Name name = (Name)  call.callee().children().get(0);
+						if (name.name().equals("cursor")){
+							ctx.addIssue(call, MESSAGERULE);
 
-	public void visitNodeString(SubscriptionContext ctx) {
-		StringLiteral stringLiteral = (StringLiteral) ctx.syntaxNode();
-
-		for(StringElement stringElement :  stringLiteral.stringElements()) {
-			if(checkIssue(stringElement, ctx)){
-				CallExpression callExpression = (CallExpression) ctx.syntaxNode();
-				if (callExpression.parent().getKind() == Tree.Kind.FOR_STMT ) {
-					ctx.addIssue(callExpression, NoFunctionCallWhenDeclaringForLoop.DESCRIPTION);
+						}
+					}
 				}
+
 			}
-		};
-	}
 
+		});
+		context.registerSyntaxNodeConsumer(Tree.Kind.WHILE_STMT, ctx -> {
+			WhileStatement forStatement = (WhileStatement) ctx.syntaxNode();
+			StatementList list = (StatementList) forStatement.body();
+			for(Statement a : list.statements()){
+				if (a.getKind().equals(Tree.Kind.EXPRESSION_STMT)){
+					ExpressionStatement expression = (ExpressionStatement) a;
+					for(Expression i : expression.expressions()){
+						CallExpression call = (CallExpression) i;
+						Name name = (Name)  call.callee().children().get(0);
+						if (name.name().equals("cursor")){
+							ctx.addIssue(call, MESSAGERULE);
 
-	private void repport(StringElement stringElement, SubscriptionContext ctx) {
-		if (stringElement.firstToken() != null) {
-			final String classname = ctx.pythonFile().fileName();
-			final int line = stringElement.firstToken().line();
-			if (!linesWithIssuesByFile.containsKey(classname)) {
-				linesWithIssuesByFile.put(classname, new ArrayList<>());
+						}
+					}
+				}
+
 			}
-			linesWithIssuesByFile.get(classname).add(line);
-		}
-		ctx.addIssue(stringElement, MESSAGERULE);
+
+		});
 	}
 
-
-	public boolean checkIssue(StringElement stringElement, SubscriptionContext ctx) {
-		if (lineAlreadyHasThisIssue(stringElement, ctx)) return false;
-		if (stringElement.value().contains(".execute(")) {
-			repport(stringElement, ctx);
-			return true;
-		}
-		return false;
-	}
-
-
-	private boolean lineAlreadyHasThisIssue(StringElement stringElement, SubscriptionContext ctx) {
-		if (stringElement.firstToken() != null) {
-			final String filename = ctx.pythonFile().fileName();
-			final int line = stringElement.firstToken().line();
-
-			return linesWithIssuesByFile.containsKey(filename)
-					&& linesWithIssuesByFile.get(filename).contains(line);
-		}
 }

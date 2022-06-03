@@ -20,13 +20,13 @@ class AvoidSQLRequestInLoopCheck:
         try:
             db = mysql.connector.connect(option_files='my.conf', use_pure=True)
             query = "SELECT * FROM users where id = "
+            cursor=db.cursor()
             for i in range(0,20):
-                cursor=db.cursor()
                 query+=str(i)
                 cursor.execute(query) #Noncompliant
                 with row in cursor:
                     print(row.name)
-                cursor.close()
+            cursor.close()
         except :
             print("Got an exception")
             db.close()
@@ -37,14 +37,13 @@ class AvoidSQLRequestInLoopCheck:
               query = "SELECT * FROM users where id = "
               i = 0
               while i<20:
-
                   cursor=db.cursor()
                   query+=str(i)
                   cursor.execute(query) #Noncompliant
-                  with row in cursor:
-                      print(row.name)
-                  cursor.close()
                   i+=1
+              with row in cursor:
+                  print(row.name)
+              cursor.close()
           except :
               print("Got an exception")
               db.close()
