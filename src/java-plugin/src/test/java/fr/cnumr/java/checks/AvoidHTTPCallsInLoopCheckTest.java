@@ -16,10 +16,18 @@ public class AvoidHTTPCallsInLoopCheckTest {
     }
 
     @Test
-    @Ignore
     public void testWebClient() {
         JavaCheckVerifier.newVerifier()
                 .onFile("src/test/files/AvoidHTTPCallsWithWebClientInLoopCheck.java")
+                .withCheck(new AvoidHTTPCallsInLoop())
+                .withClassPath(FilesUtils.getClassPath("target/test-jars"))
+                .verifyIssues();
+    }
+
+    @Test
+    public void testApacheClient() {
+        JavaCheckVerifier.newVerifier()
+                .onFile("src/test/files/AvoidHTTPCallsWithApacheClientInLoopCheck.java")
                 .withCheck(new AvoidHTTPCallsInLoop())
                 .withClassPath(FilesUtils.getClassPath("target/test-jars"))
                 .verifyIssues();

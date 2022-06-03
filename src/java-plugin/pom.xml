@@ -16,7 +16,20 @@
     <description></description>
 
     <dependencies>
+        <!-- apache http client -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.13</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
+        <!-- spring web flux -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webflux</artifactId>
@@ -196,6 +209,11 @@
                                     <artifactId>spring-webflux</artifactId>
                                     <version>5.3.20</version>
                                     <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.apache.httpcomponents</groupId>
+                                    <artifactId>httpclient</artifactId>
+                                    <version>4.5.13</version>
                                 </artifactItem>
                             </artifactItems>
                             <outputDirectory>${project.build.directory}/test-jars</outputDirectory>
