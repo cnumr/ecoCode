@@ -33,15 +33,18 @@ public class AvoidSQLRequestInLoop extends PythonSubscriptionCheck {
 					ExpressionStatement expression = (ExpressionStatement) a;
 					for(Expression i : expression.expressions()){
 						CallExpression call = (CallExpression) i;
-						Name name = (Name)  call.callee().children().get(0);
-						if (name.name().equals("cursor")){
+						for( Tree ele : call.callee().children()){
+						if(ele.getKind().equals(Tree.Kind.NAME)){
+						Name name = (Name)  ele;
+						System.out.println(name.name());
+						if (name.name().equals("execute")) {
 							ctx.addIssue(call, MESSAGERULE);
-
+						}
 						}
 					}
 				}
 
-			}
+			}}
 
 		});
 		context.registerSyntaxNodeConsumer(Tree.Kind.WHILE_STMT, ctx -> {
