@@ -26,7 +26,7 @@ class AvoidSQLRequestInLoopCheck:
                 cursor.execute(query) #Noncompliant
                 with row in cursor:
                     print(row.name)
-            cursor.close()
+                cursor.close()
         except :
             print("Got an exception")
             db.close()
@@ -41,9 +41,9 @@ class AvoidSQLRequestInLoopCheck:
                   query+=str(i)
                   cursor.execute(query) #Noncompliant
                   i+=1
-              with row in cursor:
-                  print(row.name)
-              cursor.close()
+                  with row in cursor:
+                        print(row.name)
+                  cursor.close()
           except :
               print("Got an exception")
               db.close()
