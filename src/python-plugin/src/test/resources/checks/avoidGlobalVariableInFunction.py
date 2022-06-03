@@ -1,31 +1,31 @@
 global_var = 'global'
 
 def print_global_var_details():
-    # print(len(global_var)) # Noncompliant
-    # print('Global var : ', global_var) # Noncompliant
-    # print('Global var : ' + global_var) # Noncompliant
-    # for c in global_var: # Noncompliant
-    #     print(c)
-    # if len(global_var) > 0: # Noncompliant
-    #     print('global_var len positive')
-    # elif 0 < len(global_var): # Noncompliant
-    #     print('global_var len negative')
-    # else:
-    #     print('global_var len = 0')
-    #
-    # try:
-    #     print(global_var) # Noncompliant
-    # except:
-    #     print(global_var) # Noncompliant
-    # else:
-    #     print(global_var) # Noncompliant
-    # finally:
-    #     print(global_var) # Noncompliant
-    #
-    # assert len(global_var) > 0, 'Failed' # Noncompliant
-    # assert len('test') > 0, 'Failed : ' + global_var # Noncompliant
-    # test = ''
-    # test += global_var # Noncompliant
+    print(len(global_var)) # Noncompliant
+    print('Global var : ', global_var) # Noncompliant
+    print('Global var : ' + global_var) # Noncompliant
+    for c in global_var: # Noncompliant
+        print(c)
+    if len(global_var) > 0: # Noncompliant
+        print('global_var len positive')
+    elif 0 < len(global_var): # Noncompliant
+        print('global_var len negative')
+    else:
+        print('global_var len = 0')
+
+    try:
+        print(global_var) # Noncompliant
+    except:
+        print(global_var) # Noncompliant
+    else:
+        print(global_var) # Noncompliant
+    finally:
+        print(global_var) # Noncompliant
+
+    assert len(global_var) > 0, 'Failed' # Noncompliant
+    assert len('test') > 0, 'Failed : ' + global_var # Noncompliant
+    test = ''
+    test += global_var # Noncompliant
     test = {'test': global_var, 'global_var': 1 } # Noncompliant
 
 # Compliant
