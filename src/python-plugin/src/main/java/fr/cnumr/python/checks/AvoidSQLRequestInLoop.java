@@ -2,14 +2,10 @@ package fr.cnumr.python.checks;
 
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.plugins.java.api.tree.MethodTree;
-import org.sonar.plugins.python.api.PythonFile;
 import org.sonar.plugins.python.api.PythonSubscriptionCheck;
-import org.sonar.plugins.python.api.SubscriptionContext;
 import org.sonar.plugins.python.api.tree.*;
 
 import java.util.*;
-import org.sonar.plugins.java.api.tree.ClassTree;
 
 
 @Rule(
@@ -22,29 +18,44 @@ public class AvoidSQLRequestInLoop extends PythonSubscriptionCheck {
 
 	public static final String MESSAGERULE = "Avoid perform an SQL query inside a loop";
 	private static final Map<String, Collection<Integer>> linesWithIssuesByFile = new HashMap<>();
-
 	@Override
 	public void initialize(Context context) {
-		context.registerSyntaxNodeConsumer(Tree.Kind.FOR_STMT, ctx -> {
+	/*	public boolean selectexist = false;
+			context.registerSyntaxNodeConsumer(Tree.Kind.STRING_LITERAL, ctx -> {
+				StringLiteral statement = (StringLiteral) ctx.syntaxNode();
+				for(StringElement str:statement.stringElements()){
+					if(str.value().toUpperCase().contains("SELECT") ){
+						selectexist=true;
+					}
+				}});
+
+*/
+			context.registerSyntaxNodeConsumer(Tree.Kind.FOR_STMT, ctx -> {
 			ForStatement forStatement = (ForStatement) ctx.syntaxNode();
 			StatementList list = (StatementList) forStatement.body();
 			for(Statement a : list.statements()){
-				if (a.getKind().equals(Tree.Kind.EXPRESSION_STMT)){
+				if (a.getKind().equals(Tree.Kind.EXPRESSION_STMT)) {
 					ExpressionStatement expression = (ExpressionStatement) a;
-					for(Expression i : expression.expressions()){
+					for (Expression i : expression.expressions()) {
 						CallExpression call = (CallExpression) i;
-						for( Tree ele : call.callee().children()){
-						if(ele.getKind().equals(Tree.Kind.NAME)){
-						Name name = (Name)  ele;
-						System.out.println(name.name());
-						if (name.name().equals("execute")) {
-							ctx.addIssue(call, MESSAGERULE);
-						}
+						for (Tree ele : call.callee().children()) {
+
+							if (ele.getKind().equals(Tree.Kind.NAME)) {
+								Name name = (Name) ele;
+								if (name.name().equals("execute")) {
+									for (Argument argument : call.arguments()) {
+										StringLiteral string = (StringLiteral) argument.children().get(0);
+										if (string.stringElements().get(0).value().toUpperCase().contains("SELECT")) {
+											ctx.addIssue(call, MESSAGERULE);
+										}
+									}
+								}
+							}
 						}
 					}
-				}
+				}}
 
-			}}
+
 
 		});
 		context.registerSyntaxNodeConsumer(Tree.Kind.WHILE_STMT, ctx -> {
@@ -58,9 +69,14 @@ public class AvoidSQLRequestInLoop extends PythonSubscriptionCheck {
 						for( Tree ele : call.callee().children()){
 							if(ele.getKind().equals(Tree.Kind.NAME)){
 								Name name = (Name)  ele;
-								System.out.println(name.name());
-								if (name.name().equals("execute")) {
-									ctx.addIssue(call, MESSAGERULE);
+								if (name.name().equals("execute") ) {
+									for (Argument argument : call.arguments()) {
+										StringLiteral string = (StringLiteral) argument.children().get(0);
+										if (string.stringElements().get(0).value().toUpperCase().contains("SELECT")){
+												System.out.println("CONTAINNNNN SELECT");
+												ctx.addIssue(call, MESSAGERULE);
+
+									}}
 								}
 							}
 						}
