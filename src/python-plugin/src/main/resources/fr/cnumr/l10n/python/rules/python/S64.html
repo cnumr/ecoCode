@@ -4,10 +4,10 @@
 
     def foo():
         ...
-        baseQuery= "SELECT name FROM users where id = "
+        baseQuery = "SELECT name FROM users where id = "
         for i in range(0,20):
-            query=query + str(i)
-            cursor.execute(query) #Noncompliant
+            query = query + str(i)
+            cursor.execute(query) # Noncompliant
             for row in cursor:
                 print(row)
         ...
@@ -15,7 +15,7 @@
 -----------------------------------------------------------
     def foo():
         ...
-        baseQuery= "SELECT name FROM users where id = "
+        baseQuery = "SELECT name FROM users where id = "
         data = [ i for i in range(0,20) ]
         cursor.executemany(baseQuery,data)
         for row in cursor:
@@ -33,11 +33,11 @@
         ...
         query = "SELECT name FROM users where id in (0 "
         for i in range(0,20):
-            query = query +","+str(i)
-        query+=")"
-        cursor.execute(query) #compliant
+            query = query + "," + str(i)
+        query += ")"
+        cursor.execute(query) # Compliant
 
-        # iterate through the  resultset
+        # iterate through the resultset
         for row in cursor:
             print(row)
 
