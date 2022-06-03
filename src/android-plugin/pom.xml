@@ -344,6 +344,11 @@
 								</artifactItem>
 								<artifactItem>
 									<groupId>org.springframework</groupId>
+									<artifactId>spring-webflux</artifactId>
+									<version>5.2.22.RELEASE</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.springframework</groupId>
 									<artifactId>spring-context</artifactId>
 									<version>4.3.3.RELEASE</version>
 								</artifactItem>
