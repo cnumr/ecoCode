@@ -37,7 +37,7 @@ def print_var_length(local_var = global_var):
     print(len(global_var)) # Compliant for the use, but not for the name of the var
     print(len(local_var))
     for global_var in local_var: # Compliant but not for the name
-        print(c)
+        print(global_var)
 
 print_global_var_details()
 print_var_length(global_var)
