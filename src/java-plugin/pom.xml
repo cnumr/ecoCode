@@ -16,6 +16,19 @@
     <description></description>
 
     <dependencies>
+        <!-- spring web -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>3.0.2.RELEASE</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
         <!-- apache http client -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -214,6 +227,11 @@
                                     <groupId>org.apache.httpcomponents</groupId>
                                     <artifactId>httpclient</artifactId>
                                     <version>4.5.13</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.springframework</groupId>
+                                    <artifactId>spring-web</artifactId>
+                                    <version>3.0.2.RELEASE</version>
                                 </artifactItem>
                             </artifactItems>
                             <outputDirectory>${project.build.directory}/test-jars</outputDirectory>

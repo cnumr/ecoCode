@@ -64,10 +64,27 @@ public class AvoidHTTPCallsInLoop extends IssuableSubscriptionVisitor {
                 .withAnyParameters()
                 .build();
 
+        private static final String REST_TEMPLATE = "org.springframework.web.client.RestTemplate";
+
+        private final MethodMatchers restTemplateMatcher = MethodMatchers.create()
+                .ofTypes(REST_TEMPLATE)
+                .names(
+                        "getForEntity",
+                        "postForObject",
+                        "postForLocation",
+                        "postForEntity",
+                        "exchange",
+                        "optionsForAllow",
+                        "headForHeaders",
+                        "delete"
+                )
+                .withAnyParameters()
+                .build();
         private final MethodMatchers matchers = MethodMatchers.or(
                 httpCallMatcher,
                 webClientCallMatcher,
-                apacheClientCallMatcher
+                apacheClientCallMatcher,
+                restTemplateMatcher
         );
 
         @Override

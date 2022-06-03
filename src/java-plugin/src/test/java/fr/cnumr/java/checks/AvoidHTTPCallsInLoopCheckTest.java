@@ -33,4 +33,13 @@ class AvoidHTTPCallsInLoopCheckTest {
                 .verifyIssues();
     }
 
+    @Test
+    void testRestTemplate() {
+        JavaCheckVerifier.newVerifier()
+                .onFile("src/test/files/AvoidHTTPCallsWithRestTemplateInLoopCheck.java")
+                .withCheck(new AvoidHTTPCallsInLoop())
+                .withClassPath(FilesUtils.getClassPath("target/test-jars"))
+                .verifyIssues();
+    }
+
 }
