@@ -7,9 +7,9 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-class AvoidHTTPCallsInLoopCheck {
+class AvoidHTTPCallsWithNativeClientInLoopCheck {
 
-    AvoidHTTPCallsInLoopCheck(AvoidHTTPCallsInLoopCheck mc) {}
+    AvoidHTTPCallsWithNativeClientInLoopCheck(AvoidHTTPCallsWithNativeClientInLoopCheck mc) {}
 
     public void testWithNoLoop() throws IOException, InterruptedException {
         // Create http client

@@ -10,7 +10,7 @@ public class AvoidHTTPCallsInLoopCheckTest {
     @Test
     public void testHttpClient() {
         JavaCheckVerifier.newVerifier()
-                .onFile("src/test/files/AvoidHTTPCallsInLoopCheck.java")
+                .onFile("src/test/files/AvoidHTTPCallsWithNativeClientInLoopCheck.java")
                 .withCheck(new AvoidHTTPCallsInLoop())
                 .verifyIssues();
     }
