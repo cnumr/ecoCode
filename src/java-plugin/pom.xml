@@ -93,7 +93,7 @@
                         <id>copy-bundle</id>
                         <phase>package</phase>
                         <goals>
-                        <goal>copy</goal>
+                    	<goal>copy</goal>
                         </goals>
                         <configuration>
                         <artifactItems>
@@ -175,21 +175,33 @@
                                 <artifactItem>
                                     <groupId>org.springframework</groupId>
                                     <artifactId>spring-webmvc</artifactId>
-                                    <version>4.3.3.RELEASE</version>
+                                    <version>5.2.3.RELEASE</version>
                                     <type>jar</type>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.springframework</groupId>
                                     <artifactId>spring-web</artifactId>
-                                    <version>4.3.3.RELEASE</version>
+                                    <version>5.2.3.RELEASE</version>
                                     <type>jar</type>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.springframework</groupId>
                                     <artifactId>spring-context</artifactId>
-                                    <version>4.3.3.RELEASE</version>
+                                    <version>5.2.3.RELEASE</version>
                                     <type>jar</type>
                                 </artifactItem>
+	                            <artifactItem>
+		                            <groupId>org.springframework.data</groupId>
+		                            <artifactId>spring-data-jpa</artifactId>
+		                            <version>2.2.4.RELEASE</version>
+		                            <type>jar</type>
+	                            </artifactItem>
+	                            <artifactItem>
+		                            <groupId>org.springframework.data</groupId>
+		                            <artifactId>spring-data-commons</artifactId>
+		                            <version>2.2.4.RELEASE</version>
+		                            <type>jar</type>
+	                            </artifactItem>
                             </artifactItems>
                             <outputDirectory>${project.build.directory}/test-jars</outputDirectory>
                         </configuration>
