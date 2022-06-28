@@ -32,6 +32,7 @@
     "ESOB011",
     "ESOB012",
     "ESOB013",
+    "ESOB014",
     "EOPT001",
     "EOPT002",
     "EIDL001",
@@ -41,7 +42,6 @@
     "EIDL007",
     "EIDL008",
     "EIDL009",
-    "EPOW004",
-    "ESOB012"
+    "EPOW004"
   ]
 }
