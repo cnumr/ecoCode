@@ -26,6 +26,10 @@ import org.sonar.plugins.java.api.tree.TypeCastTree;
 
 public class CheckArgumentComplexType {
 
+    private CheckArgumentComplexType() {
+        throw new IllegalStateException("Utility class");
+    }
+
     /**
      * Method that gives the argument's child value when it's of a complex type
      *
