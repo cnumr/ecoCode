@@ -22,7 +22,7 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+**/.settings
 .settings/
-
 # IntelliJ IDEA settings
 .idea/
