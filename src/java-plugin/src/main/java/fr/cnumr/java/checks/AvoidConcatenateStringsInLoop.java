@@ -48,7 +48,7 @@ public class AvoidConcatenateStringsInLoop extends IssuableSubscriptionVisitor {
 
         @Override
         public void visitAssignmentExpression(AssignmentExpressionTree tree) {
-            if ((tree.is(Tree.Kind.PLUS_ASSIGNMENT) || tree.is(Tree.Kind.PLUS)) && isStringType(tree.variable())) {
+            if (tree.is(Tree.Kind.PLUS_ASSIGNMENT) && isStringType(tree.variable())) {
                 reportIssue(tree, MESSAGE_RULE);
             } else {
                 super.visitAssignmentExpression(tree);
