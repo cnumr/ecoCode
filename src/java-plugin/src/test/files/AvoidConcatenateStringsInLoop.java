@@ -3,30 +3,30 @@ package fr.cnumr.java.utils;
 public class AvoidConcatenateStringsInLoop {
 
     public String concatenateStrings(String[] strings) {
-        String result = "";
+        String result1 = "";
 
         for (String string : strings) {
-            result += string; // Noncompliant
+            result1 += string; // Noncompliant
         }
-        return result;
+        return result1;
     }
 
     public String concatenateStrings2() {
-        String result = "";
+        String result2 = "";
 
         for (int i = 0; i < 1000; ++i) {
-            result += "another"; // Noncompliant
+            result2 += "another"; // Noncompliant
         }
-        return result;
+        return result2;
     }
 
     public String concatenateStrings3() {
-        String result = "";
+        String result3 = "";
 
         for (int i = 0; i < 1000; ++i) {
-            result = result + "another"; // Noncompliant
+            result3 = result3 + "another"; // Noncompliant
         }
-        return result;
+        return result3;
     }
 
 }

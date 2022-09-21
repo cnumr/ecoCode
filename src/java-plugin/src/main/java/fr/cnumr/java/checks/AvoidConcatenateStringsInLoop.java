@@ -38,11 +38,10 @@ public class AvoidConcatenateStringsInLoop extends IssuableSubscriptionVisitor {
 
     private class StringConcatenationVisitor extends BaseTreeVisitor {
         @Override
-        public void visitBinaryExpression(BinaryExpressionTree tree) {
-            if (tree.is(Tree.Kind.PLUS_ASSIGNMENT) || tree.is(Tree.Kind.PLUS)) {
-                if (tree.leftOperand().symbolType().is(STRING_CLASS)) {
-                    reportIssue(tree, MESSAGE_RULE);
-                }
+        public void visitAssignmentExpression(AssignmentExpressionTree tree) {
+            if ((tree.is(Tree.Kind.PLUS_ASSIGNMENT) || tree.is(Tree.Kind.ASSIGNMENT))
+                    && tree.variable().symbolType().is(STRING_CLASS)) {
+                reportIssue(tree, MESSAGE_RULE);
             }
         }
     }
