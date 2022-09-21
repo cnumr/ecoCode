@@ -20,4 +20,13 @@ public class AvoidConcatenateStringsInLoop {
         return result;
     }
 
+    public String concatenateStrings3() {
+        String result = "";
+
+        for (int i = 0; i < 1000; ++i) {
+            result = result + "another"; // Noncompliant
+        }
+        return result;
+    }
+
 }
