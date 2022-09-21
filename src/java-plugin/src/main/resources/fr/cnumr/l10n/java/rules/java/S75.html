@@ -4,7 +4,7 @@
 </p>
 
 <h2>Noncompliant Code Example</h2>
-<code>
+<pre>
 
     public String concatenateStrings(String[] strings) {
         String result = "";
@@ -24,10 +24,10 @@
         return result;
     }
 
-</code>
+</pre>
 
 <h2>Compliant Solution</h2>
-<code>
+<pre>
 
     public String concatenateStrings(String[] strings) {
         StringBuilder result = new StringBuilder();
@@ -38,4 +38,4 @@
         return result.toString();
     }
 
-</code>
+</pre>
