@@ -22,6 +22,6 @@ public class AvoidRegexPatternNotStaticTest {
                         "src/test/files/ValidRegexPattern3.java"
                 )
                 .withCheck(new AvoidRegexPatternNotStatic())
-                .verifyIssues();
+                .verifyNoIssues();
     }
 }
