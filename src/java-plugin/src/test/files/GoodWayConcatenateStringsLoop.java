@@ -21,4 +21,13 @@ public class GoodWayConcatenateStringsLoop {
         result = result + "another";
     }
 
+    public String changeValueStringInLoop() {
+        String result3 = "";
+
+        for (int i = 0; i < 1; ++i) {
+            result3 = "another";
+        }
+        return result3;
+    }
+
 }
