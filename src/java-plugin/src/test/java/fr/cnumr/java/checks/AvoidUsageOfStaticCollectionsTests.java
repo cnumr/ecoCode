@@ -6,7 +6,7 @@ import org.sonar.java.checks.verifier.JavaCheckVerifier;
 public class AvoidUsageOfStaticCollectionsTests {
 
     @Test
-    public void testValidIssues() {
+    public void testHasIssues() {
         JavaCheckVerifier.newVerifier()
                 .onFile("src/test/files/AvoidUsageOfStaticCollections.java")
                 .withCheck(new AvoidUsageOfStaticCollections())
