@@ -20,6 +20,8 @@ public class AvoidConcatenateStringsInLoop extends IssuableSubscriptionVisitor {
     public static final String MESSAGE_RULE = "Don't concatenate Strings in loop, use StringBuilder instead.";
     private static final String STRING_CLASS = String.class.getName();
 
+    private final StringConcatenationVisitor VISITOR = new StringConcatenationVisitor();
+
     @Override
     public List<Tree.Kind> nodesToVisit() {
         return Arrays.asList(
@@ -29,18 +31,10 @@ public class AvoidConcatenateStringsInLoop extends IssuableSubscriptionVisitor {
         );
     }
 
+
     @Override
     public void visitNode(@Nonnull Tree tree) {
-        if (tree instanceof ForStatementTree) {
-            ForStatementTree forStatementTree = (ForStatementTree) tree;
-            forStatementTree.statement().accept(new StringConcatenationVisitor());
-        } else if (tree instanceof ForEachStatement) {
-            ForEachStatement forEachStatement = (ForEachStatement) tree;
-            forEachStatement.statement().accept(new StringConcatenationVisitor());
-        } else if (tree instanceof WhileStatementTree) {
-            WhileStatementTree whileStatementTree = (WhileStatementTree) tree;
-            whileStatementTree.statement().accept(new StringConcatenationVisitor());
-        }
+        tree.accept(VISITOR);
     }
 
     private class StringConcatenationVisitor extends BaseTreeVisitor {
