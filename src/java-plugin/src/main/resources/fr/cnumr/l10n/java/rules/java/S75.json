@@ -1,5 +1,5 @@
 {
-  "title": "Don't concatenate Strings, use StringBuilder instead.",
+  "title": "Don't concatenate Strings in loop, use StringBuilder instead.",
   "type": "CODE_SMELL",
   "status": "ready",
   "remediation": {
@@ -9,5 +9,5 @@
   "tags": [
     "eco-conception"
   ],
-  "defaultSeverity": "Major"
+  "defaultSeverity": "Minor"
 }

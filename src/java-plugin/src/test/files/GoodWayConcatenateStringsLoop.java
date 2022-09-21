@@ -11,4 +11,14 @@ public class GoodWayConcatenateStringsLoop {
         return result.toString();
     }
 
+    public void testConcateOutOfLoop() {
+        String result = "";
+        result += "another";
+    }
+
+    public void testConcateOutOfLoop2() {
+        String result = "";
+        result = result + "another";
+    }
+
 }
