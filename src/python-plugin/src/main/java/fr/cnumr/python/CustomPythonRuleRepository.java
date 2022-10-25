@@ -20,6 +20,7 @@
 package fr.cnumr.python;
 
 
+
 import fr.cnumr.python.checks.*;
 import org.sonar.api.server.rule.RulesDefinition;
 import org.sonar.plugins.python.api.PythonCustomRuleRepository;
@@ -66,8 +67,8 @@ public class CustomPythonRuleRepository implements RulesDefinition, PythonCustom
                 AvoidFullSQLRequest.class,
                 AvoidSQLRequestInLoop.class,
                 AvoidTryCatchFinallyCheck.class,
-                NoFunctionCallWhenDeclaringForLoop.class
+                NoFunctionCallWhenDeclaringForLoop.class,
+                AvoidGettersAndSetters.class
         );
     }
-
 }
