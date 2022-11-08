@@ -4,7 +4,6 @@ import org.sonar.check.Rule;
 import org.sonar.java.model.statement.BlockTreeImpl;
 import org.sonar.java.model.statement.IfStatementTreeImpl;
 import org.sonar.plugins.java.api.IssuableSubscriptionVisitor;
-import org.sonar.plugins.java.api.tree.BlockTree;
 import org.sonar.plugins.java.api.tree.StatementTree;
 import org.sonar.plugins.java.api.tree.Tree;
 
@@ -26,12 +25,12 @@ public class AvoidMultipleIfElseStatement extends IssuableSubscriptionVisitor {
 
         Tree parentNode = tree.parent();
 
-        if (!parentNode.getClass().getSimpleName().equals("BlockTreeImpl"))
+        if (!(parentNode instanceof BlockTreeImpl))
             return;
         BlockTreeImpl node = (BlockTreeImpl) parentNode;
         sizeBody = node.body().toArray().length;
         while(idx < sizeBody) {
-            if (node.body().get(idx).getClass().getSimpleName().equals("IfStatementTreeImpl"))
+            if (node.body().get(idx) instanceof IfStatementTreeImpl)
                 ++countIfStatement;
             ++idx;
         }
@@ -48,10 +47,10 @@ public class AvoidMultipleIfElseStatement extends IssuableSubscriptionVisitor {
             if (count >= 2)
                 reportIssue(tree, "using a switch statement instead of multiple if-else if possible");
             statementTree = node.elseStatement();
-            if (statementTree.getClass().getSimpleName().equals("IfStatementTreeImpl")) {
+            if (statementTree instanceof IfStatementTreeImpl) {
                 ++count;
                 node = (IfStatementTreeImpl) statementTree;
-            } else if (statementTree.getClass().getSimpleName().equals("BlockTreeImpl")) {
+            } else if (statementTree instanceof BlockTreeImpl) {
                 break;
             }
         }
@@ -61,7 +60,7 @@ public class AvoidMultipleIfElseStatement extends IssuableSubscriptionVisitor {
     public List<Tree.Kind> nodesToVisit() {
         return Arrays.asList(Tree.Kind.IF_STATEMENT);
     }
-
+    @Override
     public void visitNode(Tree tree) {
         checkIfStatement(tree);
         checkElseIfStatement(tree);
