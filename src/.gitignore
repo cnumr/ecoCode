@@ -6,4 +6,4 @@ target/
 node/
 *.iml
 /lib/*.jar
-bin/
+bin

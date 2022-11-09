@@ -36,7 +36,7 @@ import org.sonar.plugins.java.api.tree.VariableTree;
 
 import com.google.common.collect.ImmutableList;
 
-import io.ecocode.java.checks.helpers.CheckArgumentComplexType;
+import io.ecocode.java.checks.helpers.CheckArgumentComplexTypeUtils;
 
 /**
  * If an OutputStream class is created:
@@ -95,14 +95,14 @@ public class UncompressedDataTransmissionRule extends IssuableSubscriptionVisito
                     reportIssue(treeToReport, ERROR_MESSAGE);
                 }
             } else {
-                Tree returnedArgument = (Tree) CheckArgumentComplexType.getChildExpression((ExpressionTree) treeToCheck);
+                Tree returnedArgument = (Tree) CheckArgumentComplexTypeUtils.getChildExpression((ExpressionTree) treeToCheck);
                 if (returnedArgument != treeToCheck) {
                     checkMethodInitilization(returnedArgument, treeToReport);
                 }
             }
 
         } catch (Exception e) {
-            LOG.error("Error in checkMethodInitilization", e);
+            LOG.error("Error in checkMethodInitilization : {}", e.getMessage(), e);
         }
     }
 }

@@ -24,10 +24,9 @@ import org.sonar.plugins.java.api.tree.MemberSelectExpressionTree;
 import org.sonar.plugins.java.api.tree.ParenthesizedTree;
 import org.sonar.plugins.java.api.tree.TypeCastTree;
 
-public class CheckArgumentComplexType {
+public class CheckArgumentComplexTypeUtils {
 
-    private CheckArgumentComplexType() {
-        throw new IllegalStateException("Utility class");
+    private CheckArgumentComplexTypeUtils() {
     }
 
     /**

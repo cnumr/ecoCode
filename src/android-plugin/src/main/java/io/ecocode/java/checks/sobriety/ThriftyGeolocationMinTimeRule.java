@@ -70,8 +70,8 @@ public class ThriftyGeolocationMinTimeRule extends IssuableSubscriptionVisitor {
                         TreeHelper.literalValueControl(mit.arguments().get(0), treesToReport, ARGUMENT_VALUE_TO_CONTROL);
                     }
                 } catch (Exception e) {
-                    LOG.debug(String.format("[%s] Cannot evaluate requestLocationUpdates(...) argument value.", getClass().getName()));
-                    LOG.debug("Exception:", e);
+                    LOG.debug(String.format("{} Cannot evaluate requestLocationUpdates(...) argument value.", getClass().getName()));
+                    LOG.debug("Exception: {}", e.getMessage(), e);
                 }
             }
         }

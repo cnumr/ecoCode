@@ -78,7 +78,7 @@ public class ChargeAwarenessRule extends IssuableSubscriptionVisitor {
                 }
             }
         } catch (Exception e) {
-            LOG.error("Error in visitNode", e);
+            LOG.error("Error in visitNode : {}", e.getMessage(), e);
         }
     }
 
