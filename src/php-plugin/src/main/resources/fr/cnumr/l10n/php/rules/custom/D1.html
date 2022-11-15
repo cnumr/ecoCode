@@ -9,7 +9,8 @@ catch(Exception $ex)
 {
   $msg = "Error opening $imgFile for Product $row['Identifier']";
   throw new Exception($msg);
-}finally {
+}
+finally {
   $msg = "bloc finally";
 }
 
@@ -26,6 +27,6 @@ if (!$picture) {
    $msg = "Error opening $imgFile for Product $row['Identifier']";
    print $msg;
 }
-    //finally
-    print $msg;
+//finally
+print $msg;
 </pre>
