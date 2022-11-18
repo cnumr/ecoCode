@@ -1,14 +1,60 @@
+# INSTALL
+
+## Quick start
+
+To quickly test SonarQube with ecoCode, just run :
+
+```sh
+docker run -d \
+       -v sq_ecocode_extensions:/opt/sonarqube/extensions \
+       -v sq_ecocode_logs:/opt/sonarqube/logs \
+       -v sq_ecocode_data:/opt/sonarqube/data \
+       -p 9000:9000 \
+       --name sonarqube-ecocode \
+       ghcr.io/cnumr/ecocode:latest
+```
+
+And go to [http://localhost:9000](http://localhost:9000). Default username and password are both `admin`.
+
+### Uninstall
+
+```sh
+docker stop sonarqube-ecocode
+docker rm sonarqube-ecocode
+```
+
+If you want to delete data too :
+
+```sh
+docker volume rm sq_ecocode_extensions sq_ecocode_logs sq_ecocode_data
+```
+
+## Production ready version (using PostgreSQL)
 
 ### Prerequisites
 
 - Docker
 - Docker-compose 3.9
 
-## Project structure
+### Running
+
+```sh
+docker-compose up --build -d
+```
+
+Check if the containers are up:
+
+```sh
+docker ps
+```
+
+## Building from source
+
+### Project structure
 
 Here is a preview of project tree :
 
-```
+```text
 Ecocode              # Root directory of "native" linter
 |
 +--android-plugin    # Android
@@ -24,10 +70,9 @@ Ecocode              # Root directory of "native" linter
 
 You will find more information about the plugins’ architecture in their folders
 
+### Howto build the SonarQube ecoCode plugins
 
-## Howto build the SonarQube ecoCode plugins
-
-### Prerequisites
+#### Prerequisites
 
 - Java >= 11
 - Mvn 3
@@ -39,7 +84,7 @@ The Android plugin uses [CodeNarc](https://codenarc.org/) to scan the gradle fil
 
 CodeNarc must be built separately. Please see the following steps:
 
-Build CodeNarc (Gradle 6.9.2, Java 11), then add this custom-built CodeNarc to Maven dependencies: 
+Build CodeNarc (Gradle 6.9.2, Java 11), then add this custom-built CodeNarc to Maven dependencies:
 
 ```sh
 ./prepare-codenarc
@@ -59,15 +104,6 @@ Maven will download the required dependencies.
 
 Each plugin is generated in its own `<plugin>/target` directory, but they are also copied to the `lib` directory.
 
-
-
-## Howto install SonarQube dev environment
-
-### Prerequisites
-
-You must have built the plugins (see the steps above).
-
-
 ### Start SonarQube
 
 Run the SonarQube + PostgreSQL stack:
@@ -80,19 +116,19 @@ Run the SonarQube + PostgreSQL stack:
 
 Check if the containers are up:
 
-```sh 
+```sh
 docker ps
 ```
 
 You should see two lines (one for sonarqube and one for postgres).
 If there is only postgres, check the logs:
 
-```sh 
+```sh
 docker ps -a
 docker logs src_sonar_1
 ```
 
-If you have this error on run: 
+If you have this error on run:
 `web_1  | [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]`
 you can allocate more virtual memory:
 
@@ -127,7 +163,7 @@ When you are connected, generate a new token:
 Start again your services using the token:
 
 ```sh
-TOKEN=MY_TOKEN docker-compose up --build -d
+TOKEN=MY_TOKEN docker-compose -f docker-compose.dev.yml up --build -d
 ```
 
 ## Howto install Plugin Ecocode
