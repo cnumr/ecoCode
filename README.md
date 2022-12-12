@@ -11,7 +11,7 @@ Please use the latest ecoCode version here :</h1>
 </div>
 
 <h2>
-    <a href="https://github.com/green-code-initiative/ecoCode">Visit the new ecoCode v2.0 repository</a>
+    <a href="https://github.com/green-code-initiative">Visit the new ecoCode repository</a>
 </h2>
 <h3>
 <br />
@@ -30,7 +30,7 @@ And join us on our public Slack :
         <a href="https://join.slack.com/t/ecocode-workspace/shared_invite/zt-1lhvbit2p-WbaBoYZM6pcz4zZHE1WajQ">Slack</a>
     </li>
 </ul>
-<br /> © The ecoCode team that continue to love <a href="https://github.com/cnumr">cnmur</a> ♥
+<br /> © The ecoCode team that continues to love <a href="https://github.com/cnumr">cnmur</a> ♥
 </h3>
 </div>
 <br />
