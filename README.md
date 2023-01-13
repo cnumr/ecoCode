@@ -30,7 +30,7 @@ And join us on our public Slack :
         <a href="https://join.slack.com/t/ecocode-workspace/shared_invite/zt-1lhvbit2p-WbaBoYZM6pcz4zZHE1WajQ">Slack</a>
     </li>
 </ul>
-<br /> © The ecoCode team that continues to love <a href="https://github.com/cnumr">cnmur</a> ♥
+<br /> © The ecoCode team that continues to love <a href="https://github.com/cnumr">cnumr</a> ♥
 </h3>
 </div>
 <br />
