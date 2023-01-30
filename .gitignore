@@ -26,4 +26,9 @@ buildNumber.properties
 .settings/
 
 # IntelliJ IDEA settings
+.idea/
+
+# macOS
+.DS_Store
 .idea
+
