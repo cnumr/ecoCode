@@ -2,7 +2,42 @@
 
 ---
 
-*ecoCode* is a collective project aiming at the reduction the environmental footprint of software at the code level. The goal of the project is to provide a list of static code analyzers to highlight code structures that may have a negative ecological impact: energy and resources over-consumption, "fatware", shortening terminals' lifespan, etc.
+<div style="color: red">
+
+<h1>⚠️ WARNING: This repository is no longer maintained ⚠️
+<br />
+Please use the latest ecoCode version here :</h1>
+
+</div>
+
+<h2>
+    <a href="https://github.com/green-code-initiative">Visit the new ecoCode repository</a>
+</h2>
+<h3>
+<br />
+Continue to follow the project on : 
+<ul>
+    <li>
+        <a href="https://www.ecocode.io/">Our website</a>
+    </li>
+    <li>
+        <a href="https://www.linkedin.com/showcase/ecocode-io/">Linkedin</a>
+    </li>
+</ul>
+And join us on our public Slack : 
+<ul>
+    <li>
+        <a href="https://join.slack.com/t/ecocode-workspace/shared_invite/zt-1lhvbit2p-WbaBoYZM6pcz4zZHE1WajQ">Slack</a>
+    </li>
+</ul>
+<br /> © The ecoCode team that continues to love <a href="https://github.com/cnumr">cnumr</a> ♥
+</h3>
+</div>
+<br />
+<br />
+---
+
+*ecoCode* is a collective project aiming to reduce environmental footprint of software at the code level. The goal of the project is to provide a list of static code analyzers to highlight code structures that may have a negative ecological impact: energy and resources over-consumption, "fatware", shortening terminals' lifespan, etc.
 
 ecoCode is based on evolving catalogs of [good practices](docs/rules), for various technologies. A SonarQube plugin then implement these catalogs as rules for scanning your projects.
 
@@ -12,11 +47,12 @@ ecoCode is based on evolving catalogs of [good practices](docs/rules), for vario
 
 ## 🌿 SonarQube Plugin
 
-4 technologies are supported by the plugin right now:
+5 technologies are supported by the plugin right now:
 - [Java](src/java-plugin/)
 - [PHP](src/php-plugin/)
 - [Python](src/python-plugin/)
 - [Android](src/android-plugin/)
+- [Eslint](src/ecolinter-plugin)
 
 ![Screenshot](docs/resources/screenshot.PNG)
 
